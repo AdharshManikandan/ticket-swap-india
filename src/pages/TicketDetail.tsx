@@ -5,6 +5,7 @@ import { mockTickets } from "@/data/mockData";
 import { Ticket, TicketStatus, TicketType } from "@/types/ticket";
 import { format, parse } from "date-fns";
 import Navbar from "@/components/Navbar";
+import TicketCard from "@/components/TicketCard"; // Add this import
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
