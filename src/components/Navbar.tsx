@@ -82,9 +82,8 @@ const Navbar = () => {
             variant="ghost"
             size="icon"
             className="hidden md:flex"
-            asChild
           >
-            <Link to="/search">
+            <Link to="/browse">
               <Search className="h-5 w-5" />
               <span className="sr-only">Search</span>
             </Link>
