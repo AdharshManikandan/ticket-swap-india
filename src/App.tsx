@@ -1,34 +1,29 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Browse from "./pages/Browse";
-import TicketDetail from "./pages/TicketDetail";
-import ListTicket from "./pages/ListTicket";
-import NotFound from "./pages/NotFound";
+import { Routes, Route } from "react-router-dom";
+import Index from "@/pages/Index";
+import Browse from "@/pages/Browse";
+import TicketDetail from "@/pages/TicketDetail";
+import ListTicket from "@/pages/ListTicket";
+import NotFound from "@/pages/NotFound";
+import EmailDashboard from "@/pages/EmailDashboard";
+import { Toaster } from "@/components/ui/sonner";
 
-// Create a new QueryClient instance
-const queryClient = new QueryClient();
+import "@/App.css";
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <BrowserRouter>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/browse" element={<Browse />} />
-          <Route path="/ticket/:id" element={<TicketDetail />} />
-          <Route path="/list-ticket" element={<ListTicket />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/browse" element={<Browse />} />
+        <Route path="/ticket/:id" element={<TicketDetail />} />
+        <Route path="/list-ticket" element={<ListTicket />} />
+        <Route path="/email-dashboard" element={<EmailDashboard />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Toaster />
+    </>
+  );
+}
 
 export default App;
