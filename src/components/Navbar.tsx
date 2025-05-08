@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Search, Ticket, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +24,19 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const navigateToHowItWorks = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    if (location.pathname === "/") {
+      // If already on homepage, just scroll to the section
+      const section = document.getElementById("how-it-works");
+      section?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // If on another page, navigate to homepage and then to the section
+      navigate("/#how-it-works");
+    }
+  };
 
   return (
     <header
@@ -53,12 +68,13 @@ const Navbar = () => {
           >
             Sell Your Ticket
           </Link>
-          <Link
-            to="/#how-it-works"
-            className="text-sm font-medium text-gray-700 hover:text-brand-600 transition-colors"
+          <a
+            href="/#how-it-works"
+            onClick={navigateToHowItWorks}
+            className="text-sm font-medium text-gray-700 hover:text-brand-600 transition-colors cursor-pointer"
           >
             How It Works
-          </Link>
+          </a>
         </nav>
 
         <div className="flex items-center gap-4">
