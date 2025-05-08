@@ -7,6 +7,25 @@ import Navbar from "@/components/Navbar";
 const Index = () => {
   useEffect(() => {
     document.title = "TicketSwap India - Resell Your Train, Bus & Flight Tickets";
+    
+    // Handle hash navigation for smooth scrolling
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+    
+    // Run on mount and when hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, []);
 
   return (
@@ -16,7 +35,7 @@ const Index = () => {
       <FeaturedTickets />
 
       {/* How It Works Section */}
-      <section className="py-16 md:py-24">
+      <section id="how-it-works" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>

@@ -54,7 +54,7 @@ const Navbar = () => {
             Sell Your Ticket
           </Link>
           <Link
-            to="/how-it-works"
+            to="/#how-it-works"
             className="text-sm font-medium text-gray-700 hover:text-brand-600 transition-colors"
           >
             How It Works
