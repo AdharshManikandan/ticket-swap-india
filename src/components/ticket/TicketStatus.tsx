@@ -1,28 +1,27 @@
 
 import { Button } from "@/components/ui/button";
-import { Ticket, TicketStatus as TicketStatusEnum } from "@/types/ticket";
+import { Ticket, TicketStatus } from "@/types/ticket";
 import { CheckCircle, AlertCircle } from "lucide-react";
-import { useState } from "react";
 
 interface TicketStatusProps {
   ticket: Ticket;
   onPurchaseClick: () => void;
 }
 
-const TicketStatus = ({ ticket, onPurchaseClick }: TicketStatusProps) => {
+const TicketStatusComponent = ({ ticket, onPurchaseClick }: TicketStatusProps) => {
   return (
     <div>
       <h2 className="text-sm uppercase text-gray-500 font-medium mb-2">Status & Description</h2>
       <div className="space-y-3 mb-6">
         <div className="flex items-start gap-3">
-          {ticket.status === TicketStatusEnum.AVAILABLE ? (
+          {ticket.status === TicketStatus.AVAILABLE ? (
             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
           ) : (
             <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
           )}
           <div>
             <p className="font-medium">
-              {ticket.status === TicketStatusEnum.AVAILABLE
+              {ticket.status === TicketStatus.AVAILABLE
                 ? "Available"
                 : "Sold"}
             </p>
@@ -39,7 +38,7 @@ const TicketStatus = ({ ticket, onPurchaseClick }: TicketStatusProps) => {
       )}
 
       <div className="mt-6">
-        {ticket.status === TicketStatusEnum.AVAILABLE ? (
+        {ticket.status === TicketStatus.AVAILABLE ? (
           <Button className="w-full md:w-auto" onClick={onPurchaseClick}>
             Purchase This Ticket
           </Button>
@@ -54,4 +53,4 @@ const TicketStatus = ({ ticket, onPurchaseClick }: TicketStatusProps) => {
   );
 };
 
-export default TicketStatus;
+export default TicketStatusComponent;

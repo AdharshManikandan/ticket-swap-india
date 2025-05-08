@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { mockTickets } from "@/data/mockData";
-import { Ticket, TicketStatus } from "@/types/ticket";
+import { Ticket, TicketStatus as TicketStatusEnum } from "@/types/ticket";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import TicketHeader from "@/components/ticket/TicketHeader";
 import JourneyDetails from "@/components/ticket/JourneyDetails";
 import TicketInformation from "@/components/ticket/TicketInformation";
-import TicketStatus from "@/components/ticket/TicketStatus";
+import TicketStatusComponent from "@/components/ticket/TicketStatus";
 import PurchaseDialog from "@/components/ticket/PurchaseDialog";
 import SimilarTickets from "@/components/ticket/SimilarTickets";
 import Loading from "@/components/ticket/Loading";
@@ -49,7 +49,7 @@ const TicketDetail = () => {
 
     // Update ticket status
     if (ticket) {
-      const updatedTicket = { ...ticket, status: TicketStatus.SOLD };
+      const updatedTicket = { ...ticket, status: TicketStatusEnum.SOLD };
       const index = mockTickets.findIndex((t) => t.id === ticket.id);
       if (index !== -1) {
         mockTickets[index] = updatedTicket;
@@ -106,7 +106,7 @@ const TicketDetail = () => {
             <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
               <JourneyDetails ticket={ticket} />
               <TicketInformation ticket={ticket} />
-              <TicketStatus 
+              <TicketStatusComponent 
                 ticket={ticket} 
                 onPurchaseClick={() => setDialogOpen(true)} 
               />
