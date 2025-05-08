@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { mockTickets } from "@/data/mockData";
 import { Ticket, FilterOptions, TicketType, TicketStatus } from "@/types/ticket";
@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Search, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { toast } from "sonner";
 
 const Browse = () => {
   const [searchParams] = useSearchParams();
@@ -18,6 +19,7 @@ const Browse = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [maxPrice, setMaxPrice] = useState(10000);
   const [filters, setFilters] = useState<FilterOptions>({});
+  const [filterError, setFilterError] = useState(false);
 
   // Initialize filters from URL params
   useEffect(() => {
@@ -34,9 +36,14 @@ const Browse = () => {
     
     setFilters(initialFilters);
     
-    // In a real app, we'd fetch from API with these params
-    // For now, just use mock data
-    setTickets(mockTickets.filter(ticket => ticket.status === TicketStatus.AVAILABLE));
+    try {
+      // In a real app, we'd fetch from API with these params
+      // For now, just use mock data
+      setTickets(mockTickets.filter(ticket => ticket.status === TicketStatus.AVAILABLE));
+    } catch (error) {
+      console.error("Error loading tickets:", error);
+      toast.error("Failed to load tickets. Please try again.");
+    }
   }, [searchParams]);
 
   // Calculate max price for filter slider
@@ -88,7 +95,13 @@ const Browse = () => {
   }, [tickets, searchTerm, filters]);
 
   const handleFilterChange = (newFilters: FilterOptions) => {
-    setFilters(newFilters);
+    try {
+      setFilters(newFilters);
+      setFilterError(false);
+    } catch (error) {
+      console.error("Error applying filters:", error);
+      setFilterError(true);
+    }
   };
 
   return (
@@ -117,11 +130,16 @@ const Browse = () => {
           <div className="lg:grid lg:grid-cols-4 gap-8">
             {/* Filter Sidebar - Desktop */}
             <div className="hidden lg:block">
-              <FilterSidebar
-                initialFilters={filters}
-                onFilterChange={handleFilterChange}
-                maxPriceValue={maxPrice}
-              />
+              {!filterError && (
+                <ErrorBoundary fallback={<FilterErrorMessage />}>
+                  <FilterSidebar
+                    initialFilters={filters}
+                    onFilterChange={handleFilterChange}
+                    maxPriceValue={maxPrice}
+                  />
+                </ErrorBoundary>
+              )}
+              {filterError && <FilterErrorMessage />}
             </div>
             
             {/* Filter Sidebar - Mobile */}
@@ -134,11 +152,13 @@ const Browse = () => {
                 </SheetTrigger>
                 <SheetContent side="left">
                   <div className="py-4">
-                    <FilterSidebar
-                      initialFilters={filters}
-                      onFilterChange={handleFilterChange}
-                      maxPriceValue={maxPrice}
-                    />
+                    <ErrorBoundary fallback={<FilterErrorMessage />}>
+                      <FilterSidebar
+                        initialFilters={filters}
+                        onFilterChange={handleFilterChange}
+                        maxPriceValue={maxPrice}
+                      />
+                    </ErrorBoundary>
                   </div>
                 </SheetContent>
               </Sheet>
@@ -184,5 +204,41 @@ const Browse = () => {
     </div>
   );
 };
+
+// Simple error boundary component
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode; fallback: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode; fallback: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error("Error in component:", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+// Fallback component for filter errors
+const FilterErrorMessage = () => (
+  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+    <h3 className="text-md font-medium text-yellow-800 mb-2">Filter Options Unavailable</h3>
+    <p className="text-sm text-yellow-700">
+      We're having trouble loading the filter options. Please try refreshing the page.
+    </p>
+  </div>
+);
 
 export default Browse;
