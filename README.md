@@ -1,73 +1,38 @@
-# Welcome to your Lovable project
+# TicketSwap India
 
-## Project info
+**Turn unused travel tickets into cash by connecting with travelers looking for last-minute bookings.**
 
-**URL**: https://lovable.dev/projects/3fb841ad-642a-4e49-aa30-2ad444dd06dd
+## About
 
-## How can I edit this code?
+Plans change. Trains, buses, and flights get cancelled, and the usual outcome is a partial refund or a ticket that just goes to waste. Meanwhile, someone else is often searching for a seat on that exact same route, sometimes at the last minute, after official booking is sold out.
 
-There are several ways of editing your application.
+TicketSwap India connects the two: travelers who need to give up a ticket can resell it directly to someone who needs one, instead of losing money to a cancellation fee. It's a straightforward swap that works out better for both sides.
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3fb841ad-642a-4e49-aa30-2ad444dd06dd) and start prompting.
+- **Maximized Refund** — Recover more money reselling a ticket than a standard cancellation would return.
+- **Secure Transactions** — A safe, simple flow for transferring a ticket from seller to buyer.
+- **Last-Minute Tickets** — Buyers can find tickets even after official bookings are sold out.
 
-Changes made via Lovable will be committed automatically to this repo.
+## How It Works
 
-**Use your preferred IDE**
+1. **Sell Your Ticket** — List a train, bus, or flight ticket you can no longer use.
+2. **Browse Tickets** — Buyers search by route (From / To) and travel date.
+3. **Find Tickets** — Matching listings come up instantly for the traveler to book.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Tech Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Built and prototyped using [Lovable](https://lovable.dev) (React-based, AI-assisted development).
 
-Follow these steps:
+## Status
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Solo personal project — currently a working front-end prototype. Backend, payments, and ticket-verification flow are on the roadmap.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Author
 
-# Step 3: Install the necessary dependencies.
-npm i
+**Adharsh Manikandan**
+Computer Science & Engineering student
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3fb841ad-642a-4e49-aa30-2ad444dd06dd) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+*Have feedback or want to contribute? Open an issue or reach out directly.*
